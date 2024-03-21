@@ -1,0 +1,51 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: aqua;
+  }
+  #root {
+    height: 100vh;
+  }
+  
+  /* sizing of map container*/
+  .leaflet-container {
+    height: 100vh;
+    background: aquamarine;
+  }
+  
+  /* popup */
+  .popup {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    /* border: 1px solid black; */
+    padding: 30px;
+    width: 250px;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .popup-inner {
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    text-align: left;
+  }
+  
+  .popup button {
+    margin-top: 10px;
+  }
+  
