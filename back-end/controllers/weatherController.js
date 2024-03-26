@@ -1,5 +1,5 @@
 const WeatherData = require('../models/WeatherData');
-const { Sequelize, Op } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
 exports.getAllWeatherData = async (req, res, next) => {
