@@ -139,13 +139,39 @@ const Map = () => {
             positions={coordinates}
             eventHandlers={{
               mouseover: (e) => {
-                
+                const layer = e.target;
+                layer.setStyle({
+                  fillOpacity: 0.5,
+                  weight: 2,
+                  dashArray: "0",
+                  color: "#666",
+                  fillcolor: "red",
+                  name: name,
+                });
               },
               mouseout: (e) => {
-                
+                const layer = e.target;
+                layer.setStyle({
+                  fillOpacity: 0.7,
+                  weight: 2,
+                  dashArray: "3",
+                  color: "white",
+                  fillclor: "red",
+                });
               },
               click: (e) => {
-                
+                togglePopup(state.properties.name);
+                console.log(state.properties.name);
+                // change popup name to district name
+
+                const layer = e.target;
+                layer.setStyle({
+                  fillOpacity: 1,
+                  weight: 2,
+                  dashArray: "0",
+                  color: "#666",
+                  fillcolor: "red",
+                });
               },
             }}
           />
