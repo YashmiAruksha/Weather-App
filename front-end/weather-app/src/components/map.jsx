@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import Cookies from "js-cookie";
 import "../style.css";
 import {MapContainer, Marker, Polygon} from "react-leaflet";
@@ -58,19 +59,32 @@ const Map = () => {
     iconUrl: require("../img/storm.png"),
     iconSize: [24, 24],
   });
+  const [weatherData, setWeatherData] = useState(null);
+  const [district, setDistrict] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const [name, setName] = useState("hello");
-  const [temp, setTemp] = useState("hello");
-  const [humidity, setHumidity] = useState("hello");
-  const [weather, setWeather] = useState("sunny");
   const colombo = [6.88, 79.861244];
   const anuradhapura = [8.31223, 80.41306];
-  const togglePopup = (name) => {
-    setName(name);
+  const togglePopup = (district) => {
+    setDistrict(district);
     setShowPopup(!showPopup);
 
     // console.log(element);
   };
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try{
+        const response = await axios.get('/api/weather/${district}');
+        setWeatherData(response.data);
+      }catch{
+        console.error('Error fetching weather data:', error);
+      }
+    };
+
+    if(district && showPopup){
+      fetchWeatherData();
+    }
+  }, [district]);
 
   return (
     <>
@@ -98,11 +112,14 @@ const Map = () => {
         <div className="popup" id="popup">
           <div className="popup-inner">
             <h2>{name}</h2>
-            <ul>
-              <li>Tempertature: </li>
-              <li>Humidity: </li>
-              <li>Name: </li>
+            {district && (
+              <ul>
+              <li>Tempertature: {weatherData.temperature} </li>
+              <li>Humidity: {weatherData.humidity}</li>
+              <li>Air Pressure: {weatherData.airPressure} </li>
+              <li>Weather: {weatherData.weatherType} </li>
             </ul>
+            )}
             <button onClick={togglePopup}>Close Popup</button>
           </div>
         </div>
@@ -161,9 +178,7 @@ const Map = () => {
               },
               click: (e) => {
                 togglePopup(state.properties.name);
-                console.log(state.properties.name);
-                // change popup name to district name
-
+                console.log(district);
                 const layer = e.target;
                 layer.setStyle({
                   fillOpacity: 1,
