@@ -59,6 +59,7 @@ const Map = () => {
     iconUrl: require("../img/storm.png"),
     iconSize: [24, 24],
   });
+  const [allWeatherData, setAllWeatherData] = useState([]);
   const [weatherData, setWeatherData] = useState(null);
   const [district, setDistrict] = useState('');
   const [showPopup, setShowPopup] = useState(false);
@@ -70,14 +71,26 @@ const Map = () => {
 
     // console.log(element);
   };
+  useEffect(() => {
+    const fetchAllWeatheData = async () => {
+      try{
+        const allWeatherResponse = await axios.get('http://localhost:5000/api/weather');
+        setAllWeatherData(allWeatherResponse.data);
+      }catch(error){
+        console.error(error);
+      }
+    };
+
+    fetchAllWeatheData();
+  }, []);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       try{
-        const response = await axios.get('/api/weather/${district}');
+        const response = await axios.get('http://localhost:5000/api/weather/${district}');
         setWeatherData(response.data);
       }catch{
-        console.error('Error fetching weather data:', error);
+        console.error('Error fetching weather data:');
       }
     };
 
@@ -111,7 +124,7 @@ const Map = () => {
       {showPopup && (
         <div className="popup" id="popup">
           <div className="popup-inner">
-            <h2>{name}</h2>
+            <h2>{weatherData.district}</h2>
             {district && (
               <ul>
               <li>Tempertature: {weatherData.temperature} </li>
@@ -140,11 +153,15 @@ const Map = () => {
             return polygon[0].map((item) => [item[1], item[0]]);
           });
         }
-        const names = state.properties.name;
+        const districtName = state.properties.name;
         console.log(names);
+
+        const districtWeatherData = allWeatherData.find((data) => data.district === districtName);
+        const weatherType = weatherData ? districtWeatherData.weatherType : '';
 
         return (
           <Polygon
+          key={districtName}
             pathOptions={{
               fillColor: "green",
               fillOpacity: 0.7,
@@ -163,7 +180,6 @@ const Map = () => {
                   dashArray: "0",
                   color: "#666",
                   fillcolor: "red",
-                  name: name,
                 });
               },
               mouseout: (e) => {
@@ -177,6 +193,7 @@ const Map = () => {
                 });
               },
               click: (e) => {
+                console.log(weatherType);
                 togglePopup(state.properties.name);
                 console.log(district);
                 const layer = e.target;

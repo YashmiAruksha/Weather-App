@@ -181,7 +181,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK53",
-        name: "Trikuṇāmalaya",
+        name: "Trincomalee",
       },
       id: 1,
     },
@@ -346,7 +346,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK45",
-        name: "Mulativ",
+        name: "Mullaitivu",
       },
       id: 2,
     },
@@ -529,7 +529,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK41",
-        name: "Yāpanaya",
+        name: "Jaffna",
       },
       id: 3,
     },
@@ -649,7 +649,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK42",
-        name: "Kilinŏchchi",
+        name: "Kilinochchi",
       },
       id: 4,
     },
@@ -777,7 +777,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK43",
-        name: "Mannārama",
+        name: "Mannar",
       },
       id: 5,
     },
@@ -974,7 +974,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK62",
-        name: "Puttalama",
+        name: "Puttalam",
       },
       id: 6,
     },
@@ -1153,7 +1153,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK11",
-        name: "Kŏḷamba",
+        name: "Colombo",
       },
       id: 8,
     },
@@ -1245,7 +1245,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK13",
-        name: "Kaḷutara",
+        name: "Kaluthara",
       },
       id: 9,
     },
@@ -1376,7 +1376,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK31",
-        name: "Gālla",
+        name: "Galle",
       },
       id: 10,
     },
@@ -1495,7 +1495,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK32",
-        name: "Mātara",
+        name: "Matara",
       },
       id: 11,
     },
@@ -1638,7 +1638,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK33",
-        name: "Hambantŏṭa",
+        name: "Hambanthota",
       },
       id: 12,
     },
@@ -1823,7 +1823,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK52",
-        name: "Ampāra",
+        name: "Ampara",
       },
       id: 13,
     },
@@ -2047,7 +2047,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK51",
-        name: "Maḍakalapuva",
+        name: "Batticaloa",
       },
       id: 14,
     },
@@ -2378,7 +2378,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK82",
-        name: "Mŏṇarāgala",
+        name: "Monaragala",
       },
       id: 16,
     },
@@ -2483,7 +2483,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK92",
-        name: "Kægalla",
+        name: "Kegalle",
       },
       id: 17,
     },
@@ -2774,7 +2774,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK22",
-        name: "Mātale",
+        name: "Matale",
       },
       id: 19,
     },
@@ -2893,7 +2893,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK72",
-        name: "Pŏḷŏnnaruva",
+        name: "Polonnaruwa",
       },
       id: 20,
     },
@@ -3061,7 +3061,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK61",
-        name: "Kuruṇægala",
+        name: "Kurunegala",
       },
       id: 21,
     },
@@ -3222,7 +3222,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK71",
-        name: "Anurādhapura",
+        name: "Anuradhapura",
       },
       id: 22,
     },
@@ -3329,7 +3329,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK23",
-        name: "Nuvara Ĕliya",
+        name: "Nuwara Eliya",
       },
       id: 23,
     },
@@ -3428,7 +3428,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK44",
-        name: "Vavuniyāva",
+        name: "Vavuniya",
       },
       id: 24,
     },
@@ -3538,7 +3538,7 @@ export const districtData = {
       properties: {
         source: "https://simplemaps.com",
         id: "LK21",
-        name: "Mahanuvara",
+        name: "Kandy",
       },
       id: 25,
     },
