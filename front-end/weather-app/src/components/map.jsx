@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import "../style.css";
 import {MapContainer, Marker, Polygon} from "react-leaflet";
-import { Icon } from "leaflet";
+import { Icon, marker } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { districtData } from "../lk";
 
@@ -30,50 +30,183 @@ const Map = () => {
 
     getUserDetails(accessToken);
   }, [navigate]);
-
   const markers = [
-    {
-      geocode: [7.4698, 80.6217],
-      popup: "Matale",
-    },
     {
       geocode: [6.93194, 79.84778],
       popup: "Colombo",
+      icon: "Rainy"
     },
     {
-      geocode: [7.29754, 81.68202],
-      popup: "Ampara",
+      geocode: [6.5854, 79.9607],
+      popup: "Kaluthara",
+      icon: "Windy"
     },
+    {
+      geocode: [7.0840,80.0098],
+      popup: "Gampaha",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.2906, 80.6337],
+      popup: "Kandy",
+      icon: "Sunny"
+    },
+    {
+      geocode: [6.0329, 80.2168],
+      popup: "Galle",
+      icon: "Sunny"
+    },
+    {
+      geocode: [5.9496, 80.5469],
+      popup: "Matara",
+      icon: "Sunny"
+    },
+    {
+      geocode: [6.1429, 81.1212],
+      popup: "Hambanthota",
+      icon: "Sunny"
+    },
+    {
+      geocode: [9.6615, 80.0255],
+      popup: "Jaffna",
+      icon: "Sunny"
+    },
+    {
+      geocode: [8.5874, 81.2152],
+      popup: "Trincomalee",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.3018, 81.6747],
+      popup: "Ampara",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.7249, 81.6967],
+      popup: "Batticaloa",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.4818, 80.3609],
+      popup: "Kurunegala",
+      icon: "Sunny"
+    },
+    {
+      geocode: [8.0408, 79.8394],
+      popup: "Puttalam",
+      icon: "Sunny"
+    },
+    {
+      geocode: [8.3114, 80.4037],
+      popup: "Anuradhapura",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.9403, 81.0188],
+      popup: "Polonnaruwa",
+      icon: "Sunny"
+    },
+    {
+      geocode: [6.9934, 81.0550],
+      popup: "Badulla",
+      icon: "Sunny"
+    },
+    {
+      geocode: [6.8906, 81.3454],
+      popup: "Monaragala",
+      icon: "Sunny"
+    },
+    {
+      geocode: [6.7055, 80.3848],
+      popup: "Ratnapura",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.2513, 80.3464],
+      popup: "Kegalle",
+      icon: "Sunny"
+    },
+    {
+      geocode: [7.4675, 80.6234],
+      popup: "Matale",
+      icon: "Sunny"
+    },
+    {
+      geocode: [6.9497, 80.7891],
+      popup: "Nuwara Eliya",
+      icon: "Sunny"
+    },
+    {
+      geocode: [8.7542, 80.4982],
+      popup: "Vavuniya",
+      icon: "Sunny"
+    },
+    {
+      geocode: [8.9810, 79.9044],
+      popup: "Mannar",
+      icon: "Sunny"
+    },
+    {
+      geocode: [9.2671, 80.8142],
+      popup: "Mullaitivu",
+      icon: "Sunny"
+    },
+    {
+      geocode: [9.3803, 80.3770],
+      popup: "Kilinochchi",
+      icon: "Sunny"
+    },
+    
+    
   ];
-  const sunny = new Icon({
+
+  const Sunny = new Icon({
     iconUrl: require("../img/sunny.png"),
-    iconSize: [24, 24],
+    iconSize: [20, 20],
   });
 
-  const rain = new Icon({
+  const Rainy = new Icon({
     iconUrl: require("../img/rain.png"),
-    iconSize: [24, 24],
+    iconSize: [20, 20],
   });
 
-  const storm = new Icon({
+  const Cloudy = new Icon({
     iconUrl: require("../img/storm.png"),
     iconSize: [24, 24],
   });
+  const Windy = new Icon({
+    iconUrl: require("../img/windy.png"),
+    iconSize: [24,24],
+  });
+  function getIcon(iconName) {
+    switch (iconName) {
+      case 'Sunny':
+        return Sunny;
+      case 'Rainy':
+        return Rainy;
+      case 'Windy':
+        return Windy;
+      case 'Cloudy':
+        return Cloudy;
+      default:
+        return null; // Return null or default icon if no match found
+    }
+  }
+
+  
   const [allWeatherData, setAllWeatherData] = useState([]);
   const [weatherData, setWeatherData] = useState(null);
   const [district, setDistrict] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const colombo = [6.88, 79.861244];
-  const anuradhapura = [8.31223, 80.41306];
+  const Colombo = [6.88, 79.861244];
+  const Anuradhapura = [8.31223, 80.41306];
   const [popupContent ,setPopupContent] = useState(null);
+
   const togglePopup = (districtName) => {
     setDistrict(districtName);
-    // console.log(district);
     setShowPopup(!showPopup);
-    
-
-    // console.log(element);
   };
+
   useEffect(() => {
     const fetchAllWeatheData = async () => {
       try{
@@ -108,7 +241,7 @@ const Map = () => {
 
   useEffect(() => {
     if(weatherData){
-      console.log(weatherData);
+      // console.log(weatherData);
       const content = (
         <div>
           <h2>{district}</h2>
@@ -116,7 +249,7 @@ const Map = () => {
             <li>Tempertature: {weatherData.temperature}</li>
             <li>Humidity: {weatherData.humidity}</li>
             <li>Air Pressure:  {weatherData.airPressure}</li>
-            <li>Weather:  </li>
+            <li>Weather: {weatherData.weatherType} </li>
           </ul>
         </div>
       
@@ -147,7 +280,7 @@ const Map = () => {
           <h1>Loading...</h1>
         </div>
       )}
-    <MapContainer center={[7.8774222, 80.7003428]} zoom={7.5}>
+    <MapContainer center={[7.8774222, 80.7003428]} zoom={7.5} style={{ backgroundColor: '#6a90ad' }}>
       {showPopup && (
         <div className="popup" id="popup">
           <div className="popup-inner">
@@ -155,9 +288,17 @@ const Map = () => {
           </div>
         </div>
       )}
-      <Marker position={colombo} icon={rain}></Marker>
-      <Marker position={anuradhapura} icon={sunny}></Marker>
+      {
+          markers.map((marker) =>(
+            <Marker position={marker.geocode} icon={getIcon(marker.icon)}/>
+          ))
+      }
+    
+      
+          {/* <Marker position={Colombo} icon={Sunny}></Marker> */}
+
       {districtData.features.map((state) => {
+        
         let coordinates;
         if (state.geometry.type === "Polygon") {
           // For a single Polygon
@@ -172,13 +313,6 @@ const Map = () => {
           });
         }
         const districtName = state.properties.name;
-        // console.log(names);
-
-        const districtWeatherData = allWeatherData.find((data) => data.district === districtName);
-        // if(districtWeatherData != null){
-        //   console.log(districtWeatherData.temperature);
-        // }
-        const weatherType = weatherData ? districtWeatherData.weatherType : '';
 
         return (
           <Polygon
@@ -196,11 +330,11 @@ const Map = () => {
               mouseover: (e) => {
                 const layer = e.target;
                 layer.setStyle({
-                  fillOpacity: 0.5,
+                  fillOpacity: 0.3,
                   weight: 2,
                   dashArray: "0",
-                  color: "#666",
-                  fillcolor: "red",
+                  color: "white",
+                  fillcolor: "white",
                 });
               },
               mouseout: (e) => {
@@ -210,7 +344,7 @@ const Map = () => {
                   weight: 2,
                   dashArray: "3",
                   color: "white",
-                  fillclor: "red",
+                  fillclor: "white",
                 });
               },
               click: (e) => {
@@ -222,7 +356,7 @@ const Map = () => {
                   weight: 2,
                   dashArray: "0",
                   color: "#666",
-                  fillcolor: "red",
+                  fillcolor: "white",
                 });
               },
             }}
