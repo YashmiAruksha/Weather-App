@@ -65,9 +65,12 @@ const Map = () => {
   const [showPopup, setShowPopup] = useState(false);
   const colombo = [6.88, 79.861244];
   const anuradhapura = [8.31223, 80.41306];
-  const togglePopup = (district) => {
-    setDistrict(district);
+  const [popupContent ,setPopupContent] = useState(null);
+  const togglePopup = (districtName) => {
+    setDistrict(districtName);
+    // console.log(district);
     setShowPopup(!showPopup);
+    
 
     // console.log(element);
   };
@@ -76,6 +79,7 @@ const Map = () => {
       try{
         const allWeatherResponse = await axios.get('http://localhost:5000/api/weather');
         setAllWeatherData(allWeatherResponse.data);
+        console.log(allWeatherData);
       }catch(error){
         console.error(error);
       }
@@ -86,18 +90,41 @@ const Map = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      try{
-        const response = await axios.get('http://localhost:5000/api/weather/${district}');
+      axios.get('http://localhost:5000/api/weather/'+ district)
+      .then(response => {
         setWeatherData(response.data);
-      }catch{
-        console.error('Error fetching weather data:');
-      }
+      })
+      .catch(error => {
+        console.error(error);
+      })
     };
 
-    if(district && showPopup){
+    if(district){
+      console.log(district)
       fetchWeatherData();
     }
+    console.log(district);
   }, [district]);
+
+  useEffect(() => {
+    if(weatherData){
+      console.log(weatherData);
+      const content = (
+        <div>
+          <h2>{district}</h2>
+          <ul>
+            <li>Tempertature: {weatherData.temperature}</li>
+            <li>Humidity: {weatherData.humidity}</li>
+            <li>Air Pressure:  {weatherData.airPressure}</li>
+            <li>Weather:  </li>
+          </ul>
+        </div>
+      
+      );
+
+      setPopupContent(content);
+    }
+  }, [district, weatherData, togglePopup])
 
   return (
     <>
@@ -124,16 +151,7 @@ const Map = () => {
       {showPopup && (
         <div className="popup" id="popup">
           <div className="popup-inner">
-            <h2>{weatherData.district}</h2>
-            {district && (
-              <ul>
-              <li>Tempertature: {weatherData.temperature} </li>
-              <li>Humidity: {weatherData.humidity}</li>
-              <li>Air Pressure: {weatherData.airPressure} </li>
-              <li>Weather: {weatherData.weatherType} </li>
-            </ul>
-            )}
-            <button onClick={togglePopup}>Close Popup</button>
+            {popupContent}
           </div>
         </div>
       )}
@@ -154,9 +172,12 @@ const Map = () => {
           });
         }
         const districtName = state.properties.name;
-        console.log(names);
+        // console.log(names);
 
         const districtWeatherData = allWeatherData.find((data) => data.district === districtName);
+        // if(districtWeatherData != null){
+        //   console.log(districtWeatherData.temperature);
+        // }
         const weatherType = weatherData ? districtWeatherData.weatherType : '';
 
         return (
@@ -193,9 +214,8 @@ const Map = () => {
                 });
               },
               click: (e) => {
-                console.log(weatherType);
                 togglePopup(state.properties.name);
-                console.log(district);
+                // console.log(district);
                 const layer = e.target;
                 layer.setStyle({
                   fillOpacity: 1,
