@@ -23,7 +23,7 @@ exports.getWeatherDataByDistrict = async (req, res, next) => {
   try {
     const weatherData = await WeatherData.findOne({ 
       attributes: ['district', 'humidity', 'temperature', 'airPressure', 'weatherType'],
-      where: { district }, 
+      where: Sequelize.literal(`district = '${district}' AND id = (SELECT MAX(id) FROM weather_data WHERE district = '${district}')`), 
       order: [['timestamp', 'DESC']] });
     res.json(weatherData);
   } catch (error) {

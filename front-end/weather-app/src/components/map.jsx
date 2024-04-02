@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Cookies from "js-cookie";
 import "../style.css";
-import {MapContainer, Marker, Polygon} from "react-leaflet";
+import {MapContainer, Marker, Polygon, Tooltip} from "react-leaflet";
 import { Icon, marker } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { districtData } from "../lk";
@@ -30,135 +30,6 @@ const Map = () => {
 
     getUserDetails(accessToken);
   }, [navigate]);
-  const markers = [
-    // {
-    //   geocode: [6.93194, 79.84778],
-    //   name: "Colombo",
-    //   icon: "Rainy"
-    // },
-    // {
-    //   geocode: [6.5854, 79.9607],
-    //   name: "Kaluthara",
-    //   icon: "Windy"
-    // },
-    // {
-    //   geocode: [7.0840,80.0098],
-    //   name: "Gampaha",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.2906, 80.6337],
-    //   name: "Kandy",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [6.0329, 80.2168],
-    //   name: "Galle",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [5.9496, 80.5469],
-    //   name: "Matara",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [6.1429, 81.1212],
-    //   name: "Hambanthota",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [9.6615, 80.0255],
-    //   name: "Jaffna",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [8.5874, 81.2152],
-    //   name: "Trincomalee",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.3018, 81.6747],
-    //   name: "Ampara",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.7249, 81.6967],
-    //   name: "Batticaloa",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.4818, 80.3609],
-    //   name: "Kurunegala",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [8.0408, 79.8394],
-    //   name: "Puttalam",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [8.3114, 80.4037],
-    //   name: "Anuradhapura",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.9403, 81.0188],
-    //   name: "Polonnaruwa",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [6.9934, 81.0550],
-    //   name: "Badulla",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [6.8906, 81.3454],
-    //   name: "Monaragala",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [6.7055, 80.3848],
-    //   name: "Ratnapura",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.2513, 80.3464],
-    //   name: "Kegalle",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [7.4675, 80.6234],
-    //   name: "Matale",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [6.9497, 80.7891],
-    //   name: "Nuwara Eliya",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [8.7542, 80.4982],
-    //   name: "Vavuniya",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [8.9810, 79.9044],
-    //   name: "Mannar",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [9.2671, 80.8142],
-    //   name: "Mullaitivu",
-    //   icon: "Sunny"
-    // },
-    // {
-    //   geocode: [9.3803, 80.3770],
-    //   name: "Kilinochchi",
-    //   icon: "Sunny"
-    // },
-    
-    
-  ];
 
   const Sunny = new Icon({
     iconUrl: require("../img/sunny.png"),
@@ -217,8 +88,13 @@ const Map = () => {
         console.error(error);
       }
     };
-
     fetchAllWeatheData();
+
+  // Set up interval to fetch data every 
+    const intervalId = setInterval(fetchAllWeatheData, 300000);
+
+  // Cleanup function to clear interval when component unmounts or when effect re-runs
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -291,7 +167,7 @@ const Map = () => {
       {
           allWeatherData && (
             allWeatherData.map((marker) =>(
-              <Marker position={marker.geocode} icon={getIcon(marker.weatherType)}/>
+              <Marker position={JSON.parse(marker.geocode)} icon={getIcon(marker.weatherType)}/>
             ))
           )
       }
@@ -332,7 +208,7 @@ const Map = () => {
               mouseover: (e) => {
                 const layer = e.target;
                 layer.setStyle({
-                  fillOpacity: 0.3,
+                  fillOpacity: 0.5,
                   weight: 2,
                   dashArray: "0",
                   color: "white",
@@ -354,15 +230,17 @@ const Map = () => {
                 // console.log(district);
                 const layer = e.target;
                 layer.setStyle({
-                  fillOpacity: 1,
-                  weight: 2,
+                  fillOpacity: 0.5,
+                  weight: 1,
                   dashArray: "0",
                   color: "#666",
                   fillcolor: "white",
                 });
               },
             }}
-          />
+            >
+              {/* <Tooltip style={{ border: 'none', background: 'transparent', color: 'black' }}>{districtName}</Tooltip> */}
+          </Polygon>
         );
       })}
     </MapContainer>
