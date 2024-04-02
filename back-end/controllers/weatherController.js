@@ -1,11 +1,11 @@
-const WeatherData = require('../models/WeatherData');
+const WeatherData = require('../models/weatherData');
 const { Sequelize } = require('sequelize');
 const sequelize = require('../config/database');
 
 exports.getAllWeatherData = async (req, res, next) => {
   try {
     const latestWeatherData = await WeatherData.findAll({
-      attributes: ['district', 'humidity', 'temperature', 'airPressure', 'weatherType'],
+      attributes: ['district', 'humidity', 'temperature', 'airPressure', 'weatherType', 'geocode'],
       where: Sequelize.literal(`id IN (
         SELECT MAX(id)
         FROM weather_data

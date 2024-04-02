@@ -30,6 +30,10 @@ const WeatherData = sequelize.define('weather_data', {
   timestamp: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
+  },
+  geocode: {
+    type: DataTypes.JSON,
+    allowNull: false
   }
 });
 
