@@ -38,11 +38,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(159, 211, 250, 0.9);
+    background: rgb(156, 168, 253);
   
     /* border: 1px solid black; */
-    padding: 30px;
-    width: 250px;
+    padding: 20px;
+    width: auto;
     z-index: 1000;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

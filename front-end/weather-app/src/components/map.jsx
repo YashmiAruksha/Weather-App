@@ -7,6 +7,10 @@ import {MapContainer, Marker, Polygon, Tooltip} from "react-leaflet";
 import { Icon, marker } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { districtData } from "../lk";
+import SunnyImage from "../img/sunny.png"
+import RainyImage from "../img/rain.png"
+import CloudyImage from "../img/cloudy.png"
+import WindyImage from "../img/windy.png"
 
 
 const Map = () => {
@@ -42,7 +46,7 @@ const Map = () => {
   });
 
   const Cloudy = new Icon({
-    iconUrl: require("../img/storm.png"),
+    iconUrl: require("../img/cloudy.png"),
     iconSize: [24, 24],
   });
   const Windy = new Icon({
@@ -59,6 +63,20 @@ const Map = () => {
         return Windy;
       case 'Cloudy':
         return Cloudy;
+      default:
+        return null; // Return null or default icon if no match found
+    }
+  }
+  function getImage(imageName) {
+    switch (imageName) {
+      case 'Sunny':
+        return SunnyImage;
+      case 'Rainy':
+        return RainyImage;
+      case 'Windy':
+        return WindyImage;
+      case 'Cloudy':
+        return CloudyImage;
       default:
         return null; // Return null or default icon if no match found
     }
@@ -119,14 +137,29 @@ const Map = () => {
     if(weatherData){
       // console.log(weatherData);
       const content = (
-        <div>
-          <h2>{district}</h2>
-          <ul>
-            <li>Tempertature: {weatherData.temperature}</li>
-            <li>Humidity: {weatherData.humidity}</li>
-            <li>Air Pressure:  {weatherData.airPressure}</li>
-            <li>Weather: {weatherData.weatherType} </li>
-          </ul>
+        <div  style={{ padding: '0 20px', fontFamily: 'Poppins', display: 'flex', flexDirection:'column', justifyContent:'space-between' }}>
+          <div style={{display:'flex', justifyContent:'space-between', justifyItems: 'center', alignItems: 'center', margin: '5px 0'}}>
+            <h2 style={{fontSize: '25px', marginRight: '15px'}}>{district}</h2>
+            <div>{weatherData.weatherType}</div>
+          </div>
+          <div style={{display: 'flex', width:'100%', justifyContent:'space-between'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0px', margin: '0' }}>
+              <div style={{fontSize: '60px', fontWeight: 'bold', color: 'black', margin: 0, padding: 0, display: 'flex', alignItems:'flex-start' }}>{weatherData.temperature}<div style={{fontSize: '15px', fontWeight: 'light'}}>°C</div></div>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'flex-end', padding:'5px 0 0 0' }}>
+              <div style={{display: 'flex', gap: '5px', justifyContent: 'flex-end'}}>
+                <img style={{height: 'auto', width: '50px'}} src={getImage(weatherData.weatherType)}/>
+              </div>
+              <div style={{display: 'flex', gap: '5px', justifyContent: 'space-between'}}>
+                <p>Humidity</p>
+                <p style={{fontWeight:'bold'}}>{weatherData.humidity}</p>
+              </div>
+              <div style={{display: 'flex', gap: '5px'}}>
+                <p>Air Pressure</p>
+                <p style={{fontWeight:'bold'}}>{weatherData.airPressure}</p>
+              </div>
+            </div>
+          </div>
         </div>
       
       );
@@ -156,7 +189,7 @@ const Map = () => {
           <h1>Loading...</h1>
         </div>
       )}
-    <MapContainer center={[7.8774222, 80.7003428]} zoom={7.5} style={{ backgroundColor: '#6a90ad' }}>
+    <MapContainer center={[7.8774222, 80.7003428]} zoom={7.5} scrollWheelZoom={false} style={{ backgroundColor: '#6a90ad' } }>
       {showPopup && (
         <div className="popup" id="popup">
           <div className="popup-inner">
@@ -239,7 +272,9 @@ const Map = () => {
               },
             }}
             >
-              <Tooltip>{districtName}</Tooltip>
+              <Tooltip>
+                 {districtName}
+              </Tooltip>
           </Polygon>
         );
       })}
