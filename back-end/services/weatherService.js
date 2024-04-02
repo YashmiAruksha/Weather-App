@@ -1,4 +1,4 @@
-const WeatherData = require('../models/WeatherData');
+const WeatherData = require('../models/weatherData');
 
 exports.createWeatherData = async (data) => {
   try {

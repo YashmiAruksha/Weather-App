@@ -4,21 +4,26 @@ const sequelize = require('./config/database');
 const weatherRoutes = require('./routes/weatherRoutes');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const cron = require('node-cron');
-const { createWeatherData } = require('./services/weatherService');
 const { insertWeatherData } = require('./dataGenerator');
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger_output.json');
 
 const app = express();
 
 //CORS 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
 // Middleware
 app.use(bodyParser.json());
+
+// Swagger
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Routes
 app.use(weatherRoutes);
