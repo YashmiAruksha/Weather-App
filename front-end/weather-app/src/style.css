@@ -19,6 +19,17 @@
   .leaflet-container {
     height: 100vh;
   }
+  path.leaflet-interactive{
+    outline: none;
+  }
+  g:focus {
+    outline: none;
+  }
+  
+  path:focus {
+    outline: none;
+  }
+  
   
   /* popup */
   .popup {

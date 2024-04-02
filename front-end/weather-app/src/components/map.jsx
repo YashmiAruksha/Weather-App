@@ -239,7 +239,7 @@ const Map = () => {
               },
             }}
             >
-              {/* <Tooltip style={{ border: 'none', background: 'transparent', color: 'black' }}>{districtName}</Tooltip> */}
+              <Tooltip>{districtName}</Tooltip>
           </Polygon>
         );
       })}
