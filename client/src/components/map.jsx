@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import Cookies from "js-cookie";
 import "../style.css";
 import {MapContainer, Marker, Polygon, Tooltip} from "react-leaflet";
