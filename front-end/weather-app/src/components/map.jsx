@@ -178,10 +178,10 @@ const Map = () => {
               alt={`${userDetails.given_name}'s profile`}
               className="profile-pic"
             />
-            <p>Welcome</p>
-            <h1 className="name">{userDetails.name}</h1>
-            <p className="email">{userDetails.email}</p>
-            <p className="locale">{`Locale: ${userDetails.locale}`}</p>
+            {/* <p>Welcome</p> */}
+            <h5 className="name">{userDetails.name}</h5>
+            {/* <p className="email">{userDetails.email}</p> */}
+            {/* <p className="locale">{`Locale: ${userDetails.locale}`}</p> */}
           </div>
         </div>
       ) : (
@@ -189,7 +189,7 @@ const Map = () => {
           <h1>Loading...</h1>
         </div>
       )}
-    <MapContainer center={[7.8774222, 80.7003428]} zoom={7.5} scrollWheelZoom={false} style={{ backgroundColor: '#6a90ad' } }>
+    <MapContainer center={[7.8774222, 80.7003428]} zoom={7.5} scrollWheelZoom={false} doubleClickZoom={false} style={{ backgroundColor: '#6a90ad' } }>
       {showPopup && (
         <div className="popup" id="popup">
           <div className="popup-inner">
