@@ -97,7 +97,7 @@ const Map = () => {
   useEffect(() => {
     const fetchAllWeatheData = async () => {
       try{
-        const allWeatherResponse = await axios.get('http://weather-app-jbgz.onrender.com/api/weather');
+        const allWeatherResponse = await axios.get('https://weather-app-jbgz.onrender.com/api/weather');
         setAllWeatherData(allWeatherResponse.data);
         console.log(allWeatherResponse.data);
       }catch(error){
@@ -115,7 +115,7 @@ const Map = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      axios.get('http://weather-app-jbgz.onrender.com/api/weather/'+ district)
+      axios.get('https://weather-app-jbgz.onrender.com/api/weather/'+ district)
       .then(response => {
         setWeatherData(response.data);
       })
