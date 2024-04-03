@@ -47,11 +47,15 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// Schedule data generation to occur every 5 minutes
-cron.schedule('*/5 * * * *', () => {
+// Schedule data generation to occur every 2 hours
+cron.schedule('0 */2 * * *', () => {
   console.log('Generating weather data...');
   insertWeatherData();
 });
+// cron.schedule('*/5 * * * *', () => {
+//   console.log('Generating weather data...');
+//   insertWeatherData();
+// });
 
 // Start the cron job
 console.log('Data generation scheduled every 5 minutes');

@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import "../style.css";
 import {MapContainer, Marker, Polygon, Tooltip} from "react-leaflet";
-import { Icon, marker } from "leaflet";
+import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { districtData } from "../lk";
 import SunnyImage from "../img/sunny.png"
@@ -87,9 +87,7 @@ const Map = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [district, setDistrict] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const Colombo = [6.88, 79.861244];
-  const Anuradhapura = [8.31223, 80.41306];
-  const [popupContent ,setPopupContent] = useState(null);
+  const [popupContent, setPopupContent] = useState(null);
 
   const togglePopup = (districtName) => {
     setDistrict(districtName);
@@ -99,7 +97,7 @@ const Map = () => {
   useEffect(() => {
     const fetchAllWeatheData = async () => {
       try{
-        const allWeatherResponse = await axios.get('http://localhost:5000/api/weather');
+        const allWeatherResponse = await axios.get('http://weather-app-jbgz.onrender.com/api/weather');
         setAllWeatherData(allWeatherResponse.data);
         console.log(allWeatherResponse.data);
       }catch(error){
@@ -117,7 +115,7 @@ const Map = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      axios.get('http://localhost:5000/api/weather/'+ district)
+      axios.get('http://weather-app-jbgz.onrender.com/api/weather/'+ district)
       .then(response => {
         setWeatherData(response.data);
       })
