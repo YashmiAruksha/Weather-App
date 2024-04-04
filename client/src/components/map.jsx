@@ -142,7 +142,7 @@ const Map = () => {
           </div>
           <div style={{display: 'flex', width:'100%', justifyContent:'space-between'}}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0px', margin: '0' }}>
-              <div style={{fontSize: '60px', fontWeight: 'bold', color: 'black', margin: 0, padding: 0, display: 'flex', alignItems:'flex-start' }}>{weatherData.temperature}<div style={{fontSize: '15px', fontWeight: 'light'}}>°C</div></div>
+              <div style={{fontSize: '60px', fontWeight: 'bold', color: 'black', margin: 0, padding: 0, display: 'flex', alignItems:'flex-start' }}>{parseInt(weatherData.temperature)}<div style={{fontSize: '15px', fontWeight: 'light'}}>°C</div></div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'flex-end', padding:'5px 0 0 0' }}>
               <div style={{display: 'flex', gap: '5px', justifyContent: 'flex-end'}}>
@@ -150,11 +150,11 @@ const Map = () => {
               </div>
               <div style={{display: 'flex', gap: '5px', justifyContent: 'space-between'}}>
                 <p>Humidity</p>
-                <p style={{fontWeight:'bold'}}>{weatherData.humidity}</p>
+                <p style={{fontWeight:'bold'}}>{parseInt(weatherData.humidity)} %</p>
               </div>
               <div style={{display: 'flex', gap: '5px'}}>
                 <p>Air Pressure</p>
-                <p style={{fontWeight:'bold'}}>{weatherData.airPressure}</p>
+                <p style={{fontWeight:'bold'}}>{parseInt(weatherData.airPressure)} hPa</p>
               </div>
             </div>
           </div>
