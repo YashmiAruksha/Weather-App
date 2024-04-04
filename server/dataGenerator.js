@@ -1,7 +1,5 @@
 const { faker } = require('@faker-js/faker');
-const sequelize = require('./config/database');
 const WeatherData = require('./models/weatherData');
-const cron = require('node-cron');
 
 function generateWeatherData() {
   const districts = [

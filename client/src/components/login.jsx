@@ -8,7 +8,7 @@ const Login = () => {
 
   const handleClick = () => {
     const callbackUrl = `${window.location.origin}`;
-    const googleClientId = "473578495400-0t08ic95qc8ghs4o4914dku7k3gp5gpc.apps.googleusercontent.com";
+    const googleClientId = "740951930181-m614de0dlaoqinu3tfcp3l3jr177q028.apps.googleusercontent.com";
     const targetUrl = `https://accounts.google.com/o/oauth2/auth?redirect_uri=${encodeURIComponent(
       callbackUrl
     )}&response_type=token&client_id=${googleClientId}&scope=openid%20email%20profile`;
