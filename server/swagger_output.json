@@ -9,7 +9,7 @@
       "email": "COBSCCOMP4Y222P-071@student.nibm.lk"
     }
   },
-  "host": "https://weather-app-jbgz.onrender.com",
+  "host": "weather-app-jbgz.onrender.com",
   "basePath": "/",
   "schemes": [
     "http"
